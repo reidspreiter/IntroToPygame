@@ -38,7 +38,7 @@ This function fills the map with colorful obstacles!
 Obstacles can be placed between 70 and 430 pixels
 We are appending a list to represent a Pygame Rect and its color (random)
 rect[0] = rect dimensions and rect[1] = rect color
-Pygame Rect is (left, height, width, height)
+Pygame Rect is (left, ypos, width, height)
 Each obstacle will have a space of charSize + 7 between them and must be at least charSize / 2 wide
 """
 rects = []
@@ -50,19 +50,17 @@ def make_obstacles(charSize):
     currColor = None
     x = start
     while x < end:
-        while 1:
-            currColor = choice(colors)
+        while currColor := choice(colors):
             if currColor != prevColor:
                 break
         width = randint(minWidth, 100)
         if x + width > end:
-            width = end - width + x
+            width = 100
         rects.append([(x, 0, width, screenHeight), currColor])
         prevColor = currColor
         x += width + charSize + 7
 
 make_obstacles(squareSize)
-print(rects)
 
 # winning zone
 winZone = (450, 0, 50, screenHeight)
